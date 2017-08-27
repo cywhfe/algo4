@@ -40,7 +40,7 @@ public class SequentialSearchST<Key, Value> {
         return get(key) != null;
     }
 
-    private Value get(Key key) {
+    public Value get(Key key) {
         for (Node x = first; x != null; x = x.next) {
             if (key.equals(x.key))
                 return x.val;
@@ -64,7 +64,7 @@ public class SequentialSearchST<Key, Value> {
         n++;
     }
 
-    private void delete(Key key) {
+    public void delete(Key key) {
         first = delete(first, key);
     }
 
