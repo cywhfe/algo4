@@ -76,7 +76,7 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
             h = rotateRight(h);
         if (isRed(h.left) && isRed(h.right))
             flipColors(h);
-        return null;
+        return h;
     }
 
     private void flipColors(Node h) {
