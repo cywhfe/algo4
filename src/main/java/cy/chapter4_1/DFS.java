@@ -6,8 +6,8 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class DFS {
 
-    private boolean[] marked;
-    private int count;
+    private boolean[] marked;    // marked[v] = is there an s-v path?
+    private int count;           // number of vertices connected to s
 
     public DFS(Graph G, int s) {
         marked = new boolean[G.V()];
@@ -15,12 +15,13 @@ public class DFS {
         dfs(G, s);
     }
 
-    private void dfs(Graph g, int v) {
+    private void dfs(Graph G, int v) {
         count++;
         marked[v] = true;
-        for (int w : g.adj(v)) {
-            if (!marked[w])
-                dfs(g, w);
+        for (int w : G.adj(v)) {
+            if (!marked[w]) {
+                dfs(G, w);
+            }
         }
     }
 
@@ -35,8 +36,8 @@ public class DFS {
 
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || V >= v)
-            throw new IllegalArgumentException("");
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     public static void main(String[] args) {
@@ -48,11 +49,10 @@ public class DFS {
             if (search.marked(v))
                 StdOut.print(v + " ");
         }
+
         StdOut.println();
-        if (search.count() != G.V())
-            StdOut.println("Not connected");
-        else
-            StdOut.println("connected");
+        if (search.count() != G.V()) StdOut.println("NOT connected");
+        else StdOut.println("connected");
     }
 
 }
