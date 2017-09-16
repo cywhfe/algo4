@@ -101,6 +101,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     /**
      * Does this symbol table contain the given key?
+     * <<<<<<< HEAD
      *
      * @param key the key
      * @return {@code true} if this symbol table contains {@code key} and
@@ -349,6 +350,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     /**
      * Returns the height of the BST (for debugging).
+     * <<<<<<< HEAD
+     * <p>
+     * =======
+     * >>>>>>> 3ab5bcbf084306a8208b83fd86ec55e275452d0a
      *
      * @return the height of the BST (a 1-node tree has height 0)
      */
@@ -408,7 +413,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @param key the key
      * @return the largest key in the symbol table less than or equal to {@code key}
      * @throws NoSuchElementException   if there is no such key
-     *                                  >>>>>>> origin/master
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
@@ -432,10 +436,15 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     /**
      * Returns the smallest key in the symbol table greater than or equal to {@code key}.
+     * <<<<<<< HEAD
      *
+     * @param key the key
      * @param key the key
      * @return the smallest key in the symbol table greater than or equal to {@code key}
      * @throws NoSuchElementException   if there is no such key
+     *                                  =======
+     * @throws NoSuchElementException   if there is no such key
+     *                                  >>>>>>> 3ab5bcbf084306a8208b83fd86ec55e275452d0a
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
@@ -461,9 +470,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * Return the kth smallest key in the symbol table.
      *
      * @param k the order statistic
+     * @param k the order statistic
      * @return the {@code k}th smallest key in the symbol table
      * @throws IllegalArgumentException unless {@code k} is between 0 and
-     *                                  <em>n</em>–1
      */
     public Key select(int k) {
         if (k < 0 || k >= size()) {
@@ -523,7 +532,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     /**
      * Returns all keys in the symbol table in the given range,
      * as an {@code Iterable}.
+     * <p>
      *
+     * @param lo minimum endpoint
+     * @param hi maximum endpoint
      * @param lo minimum endpoint
      * @param hi maximum endpoint
      * @return all keys in the sybol table between {@code lo}
@@ -554,13 +566,21 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     /**
      * Returns the number of keys in the symbol table in the given range.
+     * <p>
+     * <<<<<<< HEAD
      *
+     * @param lo minimum endpoint
+     * @param hi maximum endpoint
      * @param lo minimum endpoint
      * @param hi maximum endpoint
      * @return the number of keys in the sybol table between {@code lo}
      * (inclusive) and {@code hi} (inclusive)
      * @throws IllegalArgumentException if either {@code lo} or {@code hi}
      *                                  is {@code null}
+     *                                  =======
+     * @throws IllegalArgumentException if either {@code lo} or {@code hi}
+     *                                  is {@code null}
+     *                                  >>>>>>> 3ab5bcbf084306a8208b83fd86ec55e275452d0a
      */
     public int size(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
