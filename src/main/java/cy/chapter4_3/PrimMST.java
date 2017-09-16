@@ -1,57 +1,92 @@
-package cy.package4_3;
+package cy.chapter4_3;
 
 import edu.princeton.cs.algs4.*;
 import edu.princeton.cs.algs4.Edge;
 import edu.princeton.cs.algs4.EdgeWeightedGraph;
 
-public class KruskalMST {
+public class PrimMST {
 
     private static final double FLOATING_POINT_EPSILON = 1E-12;
 
-    private double weight;
-    private Queue<Edge> mst = new Queue<>();
+    private Edge[] edgeTo;
+    private double[] distTo;
+    private boolean[] marked;
+    private IndexMinPQ<Double> pq;
 
-    public KruskalMST(EdgeWeightedGraph G) {
+    public PrimMST(EdgeWeightedGraph G) {
+        edgeTo = new Edge[G.V()];
+        distTo = new double[G.V()];
+        marked = new boolean[G.V()];
+        pq = new IndexMinPQ<>(G.V());
 
-        MinPQ<Edge> pq = new MinPQ<>();
-        for (Edge e : G.edges()) {
-            pq.insert(e);
+        for (int v = 0; v < G.V(); v++) {
+            distTo[v] = Double.POSITIVE_INFINITY;
         }
 
-        UF uf = new UF(G.V());
-        while (!pq.isEmpty() && mst.size() < G.V() - 1) {
-            Edge e = pq.delMin();
-            int v = e.either();
-            int w = e.other(v);
-            if (!uf.connected(v, w)) {
-                uf.union(v, w);
-                mst.enqueue(e);
-                weight += e.weight();
-            }
+        for (int v = 0; v < G.V(); v++) {
+            if (!marked[v])
+                prim(G, v);
         }
 
         assert check(G);
     }
 
+    private void prim(EdgeWeightedGraph G, int s) {
+        distTo[s] = 0;
+        pq.insert(s, distTo[s]);
+        while (!pq.isEmpty()) {
+            int v = pq.delMin();
+            scan(G, v);
+        }
+    }
+
+    private void scan(EdgeWeightedGraph G, int v) {
+        marked[v] = true;
+        for (Edge e : G.adj(v)) {
+            int w = e.other(v);
+            if (marked[w])
+                continue;
+            if (e.weight() < distTo[w]) {
+                distTo[w] = e.weight();
+                edgeTo[w] = e;
+                if (pq.contains(w))
+                    pq.decreaseKey(w, distTo[w]);
+                else
+                    pq.insert(w, distTo[w]);
+            }
+        }
+    }
+
     public Iterable<Edge> edges() {
+        Queue<Edge> mst = new Queue<>();
+        for (int v = 0; v < edgeTo.length; v++) {
+            Edge e = edgeTo[v];
+            if (e != null) {
+                mst.enqueue(e);
+            }
+        }
         return mst;
     }
 
     public double weight() {
+        double weight = 0;
+        for (Edge e : edges()) {
+            weight += e.weight();
+        }
         return weight;
     }
 
     private boolean check(EdgeWeightedGraph G) {
-
-        // check total weight
-        double total = 0.0;
+// check weight
+        double totalWeight = 0.0;
         for (Edge e : edges()) {
-            total += e.weight();
+            totalWeight += e.weight();
         }
-        if (Math.abs(total - weight()) > FLOATING_POINT_EPSILON) {
-            System.err.printf("Weight of edges does not equal weight(): %f vs. %f\n", total, weight());
+        if (Math.abs(totalWeight - weight()) > FLOATING_POINT_EPSILON) {
+            System.err.printf("Weight of edges does not equal weight(): %f vs. %f\n", totalWeight, weight());
             return false;
         }
+
 
         // check that it is acyclic
         UF uf = new UF(G.V());
@@ -78,7 +113,7 @@ public class KruskalMST {
 
             // all edges in MST except e
             uf = new UF(G.V());
-            for (Edge f : mst) {
+            for (Edge f : edges()) {
                 int x = f.either(), y = f.other(x);
                 if (f != e) uf.union(x, y);
             }
@@ -95,14 +130,13 @@ public class KruskalMST {
             }
 
         }
-
         return true;
     }
 
     public static void main(String[] args) {
         In in = new In("data/tinyEWG.txt");
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
-        KruskalMST mst = new KruskalMST(G);
+        PrimMST mst = new PrimMST(G);
         for (Edge e : mst.edges()) {
             StdOut.println(e);
         }

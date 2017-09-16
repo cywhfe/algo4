@@ -1,4 +1,4 @@
-package cy.package4_3;
+package cy.chapter4_3;
 
 import edu.princeton.cs.algs4.*;
 
