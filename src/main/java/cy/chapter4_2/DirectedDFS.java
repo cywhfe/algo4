@@ -5,6 +5,9 @@ import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
+/**
+ * 有向图的可达性
+ */
 public class DirectedDFS {
 
     private boolean[] marked;
