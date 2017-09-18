@@ -20,6 +20,8 @@ public class Quick3string {
     }
 
     private static void sort(String[] a, int lo, int hi, int d) {
+
+        // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
             insertion(a, lo, hi, d);
             return;
@@ -30,19 +32,15 @@ public class Quick3string {
         int i = lo + 1;
         while (i <= gt) {
             int t = charAt(a[i], d);
-            if (t < v)
-                exch(a, lt++, i++);
-            else if (t > v)
-                exch(a, i, gt--);
-            else
-                i++;
-
+            if      (t < v) exch(a, lt++, i++);
+            else if (t > v) exch(a, i, gt--);
+            else              i++;
         }
 
-        sort(a, lo, lt - 1, d);
-        if (v >= 0)
-            sort(a, lt, gt, d + 1);
-        sort(a, gt + 1, hi, d);
+        // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
+        sort(a, lo, lt-1, d);
+        if (v >= 0) sort(a, lt, gt, d+1);
+        sort(a, gt+1, hi, d);
     }
 
     // exchange a[i] and a[j]
@@ -52,9 +50,13 @@ public class Quick3string {
         a[j] = temp;
     }
 
+    // return the dth character of s, -1 if d = length of s
     private static int charAt(String s, int d) {
-        return 0;
+        assert d >= 0 && d <= s.length();
+        if (d == s.length()) return -1;
+        return s.charAt(d);
     }
+
 
     private static void insertion(String[] a, int lo, int hi, int d) {
         for (int i = lo; i <= hi; i++) {
