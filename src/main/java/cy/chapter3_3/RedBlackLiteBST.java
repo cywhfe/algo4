@@ -157,6 +157,11 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
         return key;
     }
 
+
+    /***************************************************************************
+     *  Iterate using an inorder traversal.
+     *  Iterating through N elements takes O(N) time.
+     ***************************************************************************/
     //it
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<Key>();
@@ -232,24 +237,17 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
     public static void main(String[] args) {
-        String test = "S E A R C H E X A M P L E";
-        String[] keys = test.split(" ");
-        RedBlackLiteBST<String, Integer> st = new RedBlackLiteBST<String, Integer>();
-        for (int i = 0; i < keys.length; i++)
-            st.put(keys[i], i);
+        // insert N elements in order if one command-line argument supplied
+        if (args.length == 0) return;
+        int n = Integer.parseInt(args[0]);
+        RedBlackLiteBST<Integer, Integer> st2 = new RedBlackLiteBST<Integer, Integer>();
+        for (int i = 0; i < n; i++) {
+            st2.put(i, i);
+            int h = st2.height();
+            StdOut.println("i = " + i + ", height = " + h + ", size = " + st2.size());
+        }
 
-        StdOut.println("size = " + st.size());
-        StdOut.println("min  = " + st.min());
-        StdOut.println("max  = " + st.max());
-        StdOut.println();
 
-
-        // print keys in order using allKeys()
-        StdOut.println("Testing keys()");
-        StdOut.println("--------------------------------");
-        for (String s : st.keys())
-            StdOut.println(s + " " + st.get(s));
-        StdOut.println();
+        StdOut.println("size = " + st2.size());
     }
-
 }

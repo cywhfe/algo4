@@ -22,6 +22,15 @@
             <systemPath>${project.basedir}/lib/algs4.jar</systemPath>
         </dependency>
 
+        <!-- -->
+        <dependency>
+            <groupId>com.javamex</groupId>
+            <artifactId>classmexer</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/classmexer.jar</systemPath>
+        </dependency>
+
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
