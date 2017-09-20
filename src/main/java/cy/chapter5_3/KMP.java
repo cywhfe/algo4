@@ -42,8 +42,8 @@ public class KMP {
     }
 
     public static void main(String[] args) {
-        String pat = "sss";
-        String txt = "adfsdfsasssadfds";
+        String pat = "ABABAC";
+        String txt = "ABABAC";
 
         KMP kmp = new KMP(pat);
         int offset1 = kmp.search(txt);

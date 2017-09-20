@@ -10,7 +10,7 @@ public class RabinKarp {
     private String pat;//the pattern
     private long patHash;//pattern hash value
     private int m;//pattern length
-    private long q;//a lgarge prime
+    private long q;//a large prime
     private int R;//radix
     private long RM;//R^(M-1)%Q
 

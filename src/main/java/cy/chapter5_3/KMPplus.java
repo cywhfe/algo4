@@ -36,7 +36,7 @@ public class KMPplus {
         int m = pattern.length();
         int n = text.length();
         int i, j;
-        for (i = 0, j = 0; i < n && j < m; j++) {
+        for (i = 0, j = 0; i < n && j < m; i++) {
             while (j >= 0 && text.charAt(i) != pattern.charAt(j))
                 j = next[j];
             j++;
@@ -48,7 +48,7 @@ public class KMPplus {
     }
 
     public static void main(String[] args) {
-        String pat = "sss";
+        String pat = "ABABAC";
         String txt = "adfsdfsasssadfds";
 
         KMPplus kmp = new KMPplus(pat);
